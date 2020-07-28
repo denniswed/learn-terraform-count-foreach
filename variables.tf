@@ -7,7 +7,7 @@ variable aws_region {
 variable project {
   description = "Map of project names to configuration."
   type        = map
-  default = {
+  default     = {
     client-webapp = {
       public_subnets_per_vpc  = 2,
       private_subnets_per_vpc = 2,

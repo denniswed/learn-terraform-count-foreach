@@ -72,8 +72,7 @@ module "elb_http" {
 
   # Comply with ELB name restrictions 
   # https://docs.aws.amazon.com/elasticloadbalancing/2012-06-01/APIReference/API_CreateLoadBalancer.html
-  name = trimsuffix(substr(replace(join("-", ["lb", random_string.lb_id.
-  result, each.key, each.value.environment]), "/[^a-zA-Z0-9-]/", ""), 0, 32), "-")
+  name = trimsuffix(substr(replace(join("-", ["lb", random_string.lb_id.result, each.key, each.value.environment]), "/[^a-zA-Z0-9-]/", ""), 0, 32), "-")
 
   internal = false
 
@@ -96,16 +95,6 @@ module "elb_http" {
     healthy_threshold   = 3
     unhealthy_threshold = 10
     timeout             = 5
-  }
-}
-
-data "aws_ami" "amazon_linux" {
-  most_recent = true
-  owners      = ["amazon"]
-
-  filter {
-    name   = "name"
-    values = ["amzn2-ami-hvm-*-x86_64-gp2"]
   }
 }
 
