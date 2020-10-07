@@ -1,10 +1,10 @@
 variable aws_region {
   description = "AWS region"
   type        = string
-  default     = "us-east-1"
+  default     = "us-west-2"
 }
 
-variable project_name {
+/*variable project_name {
   description = "Name of the project. Used in resource names and tags."
   type        = string
   default     = "client-webapp"
@@ -39,7 +39,7 @@ variable instances_per_subnet {
   type        = number
   default     = 2
 }
-
+*/
 variable vpc_cidr_block {
   description = "CIDR block for VPC"
   type        = string
@@ -90,4 +90,25 @@ variable private_subnet_cidr_blocks {
     "10.0.115.0/24",
     "10.0.116.0/24"
   ]
+}
+
+variable project {
+  description = "Map of project names to configuration."
+  type        = map
+  default     = {
+    client-webapp = {
+      public_subnets_per_vpc  = 2,
+      private_subnets_per_vpc = 2,
+      instances_per_subnet    = 2,
+      instance_type           = "t2.micro",
+      environment             = "dev"
+    },
+    internal-webapp = {
+      public_subnets_per_vpc  = 1,
+      private_subnets_per_vpc = 1,
+      instances_per_subnet    = 2,
+      instance_type           = "t2.nano",
+      environment             = "test"
+    }
+  }
 }
